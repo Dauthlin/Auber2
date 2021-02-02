@@ -23,6 +23,9 @@ import com.mygdx.auber.Scenes.Hud;
 import com.mygdx.auber.Screens.MainMenuScreen;
 import com.mygdx.auber.Screens.PlayScreen;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Player extends Sprite implements InputProcessor {
     public Vector2 velocity = new Vector2(0,0);
@@ -43,6 +46,8 @@ public class Player extends Sprite implements InputProcessor {
     private boolean isSHeld;
     private boolean isDHeld;
 
+    public String activeAbility = "None";
+
 
     private float alpha = 0;
     private float arrestRadius = 200;
@@ -51,6 +56,8 @@ public class Player extends Sprite implements InputProcessor {
 
     private Vector2 healerPosition = new Vector2();
     public Array<Vector2> teleporters = new Array<>();
+
+    Timer timer = new Timer();
 
     public Player(Sprite sprite, Array<TiledMapTileLayer> collisionLayer, boolean demo) {
         super(sprite);
@@ -66,6 +73,21 @@ public class Player extends Sprite implements InputProcessor {
         }
         health = 100f;
         //health = 100000000000000000000000000f;
+    }
+
+    public void SetActiveAbility(String ability, int duration){
+        this.activeAbility = ability;
+        timer.schedule(new AbilityDuration(), duration*1000);
+        System.out.println(activeAbility);
+
+    }
+
+    //disables ability after time duration
+    class AbilityDuration extends TimerTask {
+        public void run() {
+            activeAbility = "None";
+            System.out.println(activeAbility);
+        }
     }
 
     /**
@@ -125,6 +147,14 @@ public class Player extends Sprite implements InputProcessor {
         Gdx.gl.glLineWidth(3f);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(.2f, .2f, .2f, alpha);
+        if (PlayScreen.player.activeAbility == "increased range"){
+            arrestRadius = 300;
+        }
+
+        else{
+            arrestRadius = 200;
+        }
+
         shapeRenderer.circle(this.getX() + this.getWidth()/2, this.getY() + this.getHeight()/2, arrestRadius, 900);
         shapeRenderer.end(); //Rendering the circle
     }
@@ -173,6 +203,12 @@ public class Player extends Sprite implements InputProcessor {
             canHeal = true;
         } //After 15 seconds the player can heal again
 
+        if (PlayScreen.player.activeAbility == "speed boost"){
+            SPEED = (float)2.6;
+        }
+        else{
+            SPEED = (float)1.3;
+        }
         if(isWHeld) {
             velocity.y += SPEED;
         }
@@ -372,7 +408,9 @@ public class Player extends Sprite implements InputProcessor {
      * @param amount Amount of damage to deal.
      */
     public static void takeDamage(float amount) {
-        health -= amount;
+        if (PlayScreen.player.activeAbility!="invulnerable"){
+            health -= amount;
+        }
     }
 
     /**

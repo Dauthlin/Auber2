@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -39,10 +40,11 @@ public class PlayScreen implements Screen {
     private Prisoners prisoners;
     private final ShapeRenderer shapeRenderer;
     public static OrthographicCamera camera;
-    public Player player;
+    public static Player player;
 
     public static int numberOfInfiltrators;
     public static int numberOfCrew;
+    public static int numberOfPowerups;
     public static int maxIncorrectArrests;
 
     private static boolean demo;
@@ -50,8 +52,10 @@ public class PlayScreen implements Screen {
     public PlayScreen(Auber game, boolean demo,int setNumberOfInfiltrators,int setNumberOfCrew,int setMaxIncorrectArrests,boolean loadingGame){
         this.game = game;
         this.demo = demo;
+
         numberOfInfiltrators = setNumberOfInfiltrators;
         numberOfCrew = setNumberOfCrew;
+
         maxIncorrectArrests = setMaxIncorrectArrests;
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(Auber.VirtualWidth, Auber.VirtualHeight, camera);
@@ -64,7 +68,8 @@ public class PlayScreen implements Screen {
         map = mapLoader.load("AuberMap.tmx"); //Creates a new map loader and loads the map into map
 
         Infiltrator.createInfiltratorSprites();
-        CrewMembers.createCrewSprites(); //Generates the infiltrator and crewmember sprites
+        CrewMembers.createCrewSprites();
+        Powerup.createPowerupSprites(); //Generates the infiltrator,crewmember and powerup sprites
 
         graphCreator = new GraphCreator((TiledMapTileLayer)map.getLayers().get("Tile Layer 1")); //Generates all the nodes and paths for the given map layer
         keySystemManager = new KeySystemManager((TiledMapTileLayer)map.getLayers().get("Systems")); //Generates key systems
@@ -88,6 +93,17 @@ public class PlayScreen implements Screen {
                 double chance = Math.random() * 20;
                 NPCCreator.createCrew(CrewMembers.selectSprite(chance), MapGraph.getRandomNode(), graphCreator.mapGraph,chance,(float) 1,(float) 1);
             } //Creates numberOfCrew crewmembers, gives them a random sprite
+
+            /**
+             * creates power-ups
+             */
+
+            for (int i = 0; i < 5; i++) {
+                double chance = Math.random() * 5;
+                GeneratePowerups.createPowerups(Powerup.selectSprite(chance), MapGraph.getRandomNode(), chance);
+            } //creates 5 random powerups in random locations
+
+
         }
         else{
             Gson gson = new Gson();//reloads old infiltrators
@@ -100,6 +116,7 @@ public class PlayScreen implements Screen {
             Gson gsoon = new Gson();//reloads old crewmates
             String npcSave = Gdx.app.getPreferences("Saved Game").getString("npcInfo");
             NPCInfo npcInfo = gsoon.fromJson(npcSave, NPCInfo.class);
+
 
             for(CrewModel crew:npcInfo.data){
                 NPCCreator.createCrew(CrewMembers.selectSprite(crew.chance), MapGraph.closest(crew.x,crew.y), graphCreator.mapGraph,crew.chance,crew.goalX,crew.goalY);
@@ -117,6 +134,14 @@ public class PlayScreen implements Screen {
                     Hud.ImposterCount += 1;
                 }
             }
+
+            Gson gsoooon = new Gson();//reloads old powerups
+            String pwrUpSave = Gdx.app.getPreferences("Saved Game").getString("powerupInfo");
+            PowerupInfo pwrInfo = gsoooon.fromJson(pwrUpSave, PowerupInfo.class);
+
+            for(PowerupModel powerup:pwrInfo.data){
+                GeneratePowerups.createPowerups(Powerup.selectSprite(powerup.chance),MapGraph.closest(powerup.x,powerup.y), powerup.chance);
+            }
         }
 
 
@@ -132,6 +157,7 @@ public class PlayScreen implements Screen {
         playerCollisionLayers.add((TiledMapTileLayer) map.getLayers().get("Tile Layer 1")); playerCollisionLayers.add((TiledMapTileLayer) map.getLayers().get(2)); //The layers on which the player will collide
 
         player = new Player(new Sprite(new Texture("AuberStand.png")), playerCollisionLayers, demo);
+        //System.out.println(player);
         if(! loadingGame) {
             player.setPosition(1700, 3000); //Creates a player and sets him to the given position
         }
@@ -186,6 +212,7 @@ public class PlayScreen implements Screen {
     public void update(float time){
         NPC.updateNPC(time);
         player.update(time);
+        Powerup.updatePowerup();
         hud.update();
         camera.update(); //Updating everything that needs to be updated
 
@@ -240,6 +267,7 @@ public class PlayScreen implements Screen {
         renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get(3));
 
         NPC.render(renderer.getBatch()); //Renders all NPCs
+        Powerup.render(renderer.getBatch()); //Renders all power-ups
         if(!demo)
         {
             player.draw(renderer.getBatch()); //Renders the player
@@ -280,6 +308,8 @@ public class PlayScreen implements Screen {
         NPC.disposeNPC();
         KeySystemManager.dispose();
         player.dispose();
+        Powerup.disposePowerup();
+        GeneratePowerups.dispose();
     }
 
     /**
@@ -325,6 +355,8 @@ public class PlayScreen implements Screen {
         player.dispose();
         graphCreator.dispose();
         NPC.disposeNPC();
+        Powerup.disposePowerup();
+        GeneratePowerups.dispose();
         KeySystemManager.dispose();
         player.dispose();
         map.dispose();
@@ -340,4 +372,5 @@ public class PlayScreen implements Screen {
         System.out.format(" Destroyed: %d\n", KeySystemManager.destroyedKeySystemsCount());
         System.out.println();
     }
+
 }

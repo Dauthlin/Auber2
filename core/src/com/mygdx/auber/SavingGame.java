@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.google.gson.Gson;
 import com.mygdx.auber.entities.Player;
+import com.mygdx.auber.entities.Powerup;
 
 public class SavingGame {
 
@@ -28,6 +29,11 @@ public class SavingGame {
         String inf = gson.toJson(infInfo);
         prefs.putString("infInfo",inf);
 
+        //saves powerup info
+        PowerupInfo powerupInfo = new PowerupInfo();
+        String pwr = gson.toJson(powerupInfo);
+        prefs.putString("powerupInfo",pwr);
+
         //saves prisoner info
         PrisonerInfo prisInfo = new PrisonerInfo();
         String pris = gson.toJson(prisInfo);
@@ -36,7 +42,9 @@ public class SavingGame {
 
 
 
-        System.out.println(pris);
+
+
+        //System.out.println(pwr);
     }
 
 }

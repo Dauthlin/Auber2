@@ -52,7 +52,10 @@ public class Infiltrator extends NPC{
      */
     public void step(float delta)
     {
-        this.moveNPC(); //Moves the npc and sets their scale
+        if (PlayScreen.player.activeAbility!="freeze infiltrators"){
+            this.moveNPC(); //Moves the npc and sets their scale
+        }
+
 
         if(isDestroying)
         {
@@ -69,9 +72,13 @@ public class Infiltrator extends NPC{
 
             if(Vector2.dst(Player.x, Player.y, this.getX(), this.getY()) < 250)
             {
-                keySystem.stopDestroy();
-                this.useAbility();
-                this.isDestroying = false;
+                //do not react to player if player is invisible
+                if (PlayScreen.player.activeAbility!="invisibility"){
+                    keySystem.stopDestroy();
+                    this.useAbility();
+                    this.isDestroying = false;
+                }
+
             }
         } //If isDestroying, if the distance to the player is less than 250, use ability and stop destroying, else keep adding time
 
