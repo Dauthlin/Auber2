@@ -43,6 +43,7 @@ public class TutorialScreen implements Screen{
         images.add(new Image(new Texture("Tutorial4.png")));
         images.add(new Image(new Texture("Tutorial5.png")));
         images.add(new Image(new Texture("Tutorial6.png")));
+        images.add(new Image(new Texture("Tutorial7.png")));
 
         final Table tutTable = new Table();//Table for adding each image to so that it can be displayed
         stage.addActor(tutTable);

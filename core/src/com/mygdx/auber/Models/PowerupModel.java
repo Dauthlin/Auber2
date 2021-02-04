@@ -1,4 +1,4 @@
-package com.mygdx.auber;
+package com.mygdx.auber.Models;
 
 import com.mygdx.auber.entities.Powerup;
 
@@ -8,6 +8,7 @@ public class PowerupModel {
     public double chance;
 
     public PowerupModel(Float x, Float y, double chance) {
+        //This stores the basic structure of a Powerup and what information should be saved
         this.x = x;
         this.y = y;
         this.chance = chance;

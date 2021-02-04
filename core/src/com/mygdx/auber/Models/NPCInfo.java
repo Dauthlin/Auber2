@@ -1,4 +1,4 @@
-package com.mygdx.auber;
+package com.mygdx.auber.Models;
 
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.auber.Screens.PlayScreen;
@@ -13,6 +13,7 @@ public class NPCInfo {
     public List<CrewModel> data = new ArrayList<>();
     public int npcNumber;
     public NPCInfo() {
+        //this runs through every NPC and saves their data to an array
 
         for (CrewMembers crew: NPCCreator.crew){
             data.add(new CrewModel(crew.getX(),crew.getY(),crew.currentImage,crew.currentGoal.x,crew.currentGoal.y,false));

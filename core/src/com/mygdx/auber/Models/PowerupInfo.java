@@ -1,4 +1,4 @@
-package com.mygdx.auber;
+package com.mygdx.auber.Models;
 
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.auber.Screens.PlayScreen;
@@ -15,6 +15,7 @@ public class PowerupInfo {
     public List<PowerupModel> data = new ArrayList<>();
     public int powerupNumber;
     public PowerupInfo() {
+        //this runs through every Powerup and saves their data to an array
 
         for (Powerup powerup: GeneratePowerups.Powerups){
             data.add(new PowerupModel(powerup.getX(),powerup.getY(),powerup.getChance()));

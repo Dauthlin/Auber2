@@ -1,8 +1,9 @@
-package com.mygdx.auber;
+package com.mygdx.auber.SavingLoading;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.google.gson.Gson;
+import com.mygdx.auber.Models.*;
 import com.mygdx.auber.entities.Player;
 import com.mygdx.auber.entities.Powerup;
 
@@ -11,6 +12,7 @@ public class SavingGame {
 
 
     public void playerSave(){
+        //runs through all the different classes that need to be saved and saves the important information as a preference
         Preferences prefs = Gdx.app.getPreferences("Saved Game");
         Gson gson = new Gson();
 

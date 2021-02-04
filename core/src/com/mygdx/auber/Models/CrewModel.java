@@ -1,4 +1,4 @@
-package com.mygdx.auber;
+package com.mygdx.auber.Models;
 
 public class CrewModel {
     public Float x, y,goalX,goalY;
@@ -6,6 +6,7 @@ public class CrewModel {
     public boolean destoying;
 
     public CrewModel(Float x, Float y,double chance,Float goalX, Float goalY,Boolean destoying) {
+        //This stores the basic structure of a crewmember and what information should be saved
         this.x = x;
         this.y = y;
         this.chance = chance;
