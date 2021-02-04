@@ -245,7 +245,7 @@ public class Infiltrator extends NPC{
      */
     public static void createInfiltratorSprites()
     {
-        Infiltrator.easySprites.add(new Sprite(new Texture("Doctor.png")));
+        Infiltrator.easySprites.add(new Sprite(new Texture("doctor.png")));
         Infiltrator.easySprites.add(new Sprite(new Texture("InfiltratorEngineer.png")));
         Infiltrator.easySprites.add(new Sprite(new Texture("InfiltratorAlien.png")));
 

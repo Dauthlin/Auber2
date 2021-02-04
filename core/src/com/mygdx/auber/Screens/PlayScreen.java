@@ -204,7 +204,6 @@ public class PlayScreen implements Screen {
     {
         return NPCCreator.infiltrators.isEmpty();
     }
-
     /**
      * Called every frame, call update methods in here
      * @param time Time between last frame and this frame

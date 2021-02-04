@@ -49,13 +49,13 @@ public class KeySystem {
         return null;
     }
 
-    boolean isSafe() {
+    public boolean isSafe() {
         return timeRemaining() == null && destructionStartTime == null;
     }
-    boolean isBeingDestroyed() {
+    public boolean isBeingDestroyed() {
         return timeRemaining() != null;
     }
-    boolean isDestroyed() {
+    public boolean isDestroyed() {
         return timeRemaining() == null && destructionStartTime != null;
     }
 }
