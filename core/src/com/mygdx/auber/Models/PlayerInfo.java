@@ -1,4 +1,4 @@
-package com.mygdx.auber;
+package com.mygdx.auber.Models;
 
 import com.mygdx.auber.Screens.PlayScreen;
 import com.mygdx.auber.entities.Player;
@@ -12,6 +12,8 @@ public class PlayerInfo {
     public int maxIncorrectArrests;
 
     public PlayerInfo() {
+        //as there is only one player a info class is not required
+        //this collects data about the player that needs to be saved
         this.x = Player.x;
         this.y = Player.y;
         this.health= Player.health;

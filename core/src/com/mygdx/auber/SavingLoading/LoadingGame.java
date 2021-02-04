@@ -1,15 +1,17 @@
-package com.mygdx.auber;
+package com.mygdx.auber.SavingLoading;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.google.gson.Gson;
+import com.mygdx.auber.Auber;
+import com.mygdx.auber.Models.PlayerInfo;
 import com.mygdx.auber.Screens.PlayScreen;
 import com.mygdx.auber.entities.Player;
 
 import java.util.Map;
 
 public class LoadingGame {
-
+    //this class is run if the game needs to be loaded and tells the game that it needs to be loading data when starting up the game
 
     public void loadGame(Auber game){
         if (if_exists("Saved Game")){

@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.gson.JsonElement;
 import com.mygdx.auber.*;
+import com.mygdx.auber.Models.*;
 import com.mygdx.auber.Pathfinding.GraphCreator;
 import com.mygdx.auber.Pathfinding.MapGraph;
 import com.mygdx.auber.Scenes.Hud;
@@ -193,7 +194,11 @@ public class PlayScreen implements Screen {
      * @return Boolean if the game is over or not
      */
     public boolean gameOver() {
-        return Player.health <= 0 || Hud.CrewmateCount >= PlayScreen.maxIncorrectArrests || KeySystemManager.destroyedKeySystemsCount() >= 15 ;
+        if (!demo) {
+            //the game only ends if its not a demo
+            return Player.health <= 0 || Hud.CrewmateCount >= PlayScreen.maxIncorrectArrests || KeySystemManager.destroyedKeySystemsCount() >= 15;
+        }
+        else {return false;}
     }
 
     /**

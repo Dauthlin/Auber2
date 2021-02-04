@@ -1,4 +1,4 @@
-package com.mygdx.auber;
+package com.mygdx.auber.Models;
 
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.auber.entities.Prisoners;
@@ -11,6 +11,7 @@ public class PrisonerInfo {
     public int prisNumber;
 
     public PrisonerInfo() {
+        //this runs through every prisoner and saves their data to an array
         for (int i = 0; i < Prisoners.prisonerSide.size(); i++) {
             data.add(new PrisonerModel(Prisoners.prisonerSide.get(i),Prisoners.prisonerChance.get(i)));
         }

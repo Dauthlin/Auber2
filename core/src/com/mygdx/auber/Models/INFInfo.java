@@ -1,4 +1,4 @@
-package com.mygdx.auber;
+package com.mygdx.auber.Models;
 
 import com.mygdx.auber.Screens.PlayScreen;
 import com.mygdx.auber.entities.CrewMembers;
@@ -12,6 +12,7 @@ public class INFInfo {
     public List<CrewModel> data = new ArrayList<>();
     public int infNumber;
     public INFInfo() {
+        //this runs through every Infiltrator and saves their data to an array
 
         for (Infiltrator inf: NPCCreator.infiltrators){
             if (! inf.isDestroying) {
