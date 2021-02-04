@@ -21,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.auber.Auber;
-import com.mygdx.auber.LoadingGame;
+import com.mygdx.auber.LoadingSaving.LoadingGame;
 import com.mygdx.auber.ScrollingBackground;
 
 import java.util.Map;

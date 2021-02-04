@@ -19,8 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.auber.Auber;
-import com.mygdx.auber.LoadingGame;
-import com.mygdx.auber.SavingGame;
+import com.mygdx.auber.LoadingSaving.LoadingGame;
+import com.mygdx.auber.LoadingSaving.SavingGame;
 import com.mygdx.auber.entities.Player;
 
 
@@ -39,6 +39,7 @@ public class PauseScreen implements Screen {
     private Auber game;
 
     public PauseScreen(final Auber game, final PlayScreen currentScreen){
+        //acts as a pause screen using the same design as the other menu screens in the game
         this.game = game;
 
         viewport = new ExtendViewport(Auber.VirtualWidth, Auber.VirtualHeight, new OrthographicCamera());
