@@ -299,13 +299,16 @@ public class PlayScreen implements Screen {
         Gdx.gl.glDisable(GL20.GL_BLEND);
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             if (! demo){
-                game.setScreen(new PauseScreen(game,this));
+                game.setScreen(new PauseScreen(game,this)); //activates the pause screen
             }
             else{
                 this.fakeHide();
-                game.setScreen(new MainMenuScreen(game));
+                game.setScreen(new MainMenuScreen(game)); //if its the demo running then it ends the demo
             }
         }
+
+
+
     }
     public void fakeHide(){
         graphCreator.dispose();
