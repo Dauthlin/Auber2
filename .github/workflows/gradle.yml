@@ -25,10 +25,10 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Tests
-      run: ./tests/src/de/tomgrill/gdxtesting/GdxTestRunner
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      if: always()
-      with:
-        files: ./tests/build/test-results/test/binary/TEST-de.tomgrill.gdxtesting.tests.CrewMembersTest.xml
-
+      run: |
+        ./tests/src/de/tomgrill/gdxtesting/tests/CollisionTest
+        ./tests/src/de/tomgrill/gdxtesting/tests/CrewMembersTest
+        ./tests/src/de/tomgrill/gdxtesting/tests/InfiltratorTest
+        ./tests/src/de/tomgrill/gdxtesting/tests/KeySystemManagerTest
+        ./tests/src/de/tomgrill/gdxtesting/tests/PlayerTest
+        ./tests/src/de/tomgrill/gdxtesting/tests/PlayScreenTest
