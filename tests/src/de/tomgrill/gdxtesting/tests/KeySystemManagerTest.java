@@ -28,7 +28,7 @@ public class KeySystemManagerTest {
         assertEquals(2,manager.beingDestroyedKeySystemsCount());//checking that only two systems are being destroyed
     }
     @Test
-    public void DestroyedKeySystemsCountTest(){
+    public void destroyedKeySystemsCountTest(){
         KeySystem keySys4 = Mockito.mock(KeySystem.class);
         when(keySys4.isDestroyed()).thenReturn(true);//stubbing isDestroyed() method to return true
         KeySystem keySys5 = Mockito.mock(KeySystem.class);
