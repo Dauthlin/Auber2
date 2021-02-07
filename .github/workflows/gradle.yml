@@ -5,12 +5,12 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ main, Adam,  David, clara, ethan, george, lakhan, mostly_broken, changing_saving]
+    branches: [ main, mostly_broken, changing_saving, CI, remaking_tutorial]
   pull_request:
     branches: [ main]
 
 jobs:
-  build:
+  build_and_test:
 
     runs-on: ubuntu-latest
 
@@ -24,3 +24,5 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Run tests
+      run: ./gradlew tests:test
